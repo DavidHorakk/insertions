@@ -10,4 +10,6 @@ public class InsertionsApplication {
         SpringApplication.run(InsertionsApplication.class, args);
     }
 
+
+
 }
