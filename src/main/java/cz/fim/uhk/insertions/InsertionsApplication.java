@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class InsertionsApplication {
 //        UserService us = new UserService(user);
 //        us.passwordEncoder();
 
-        User user = new User("Jan","Novák","test","novakja@uhk.cz","123456789",1);
+//        User user = new User("Jan","Novák","test","novakja@uhk.cz","123456789",1);
 
 //        Transaction tx = session.beginTransaction();
 //        session.save(user);

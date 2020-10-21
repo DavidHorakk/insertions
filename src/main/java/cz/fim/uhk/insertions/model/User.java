@@ -3,6 +3,7 @@ package cz.fim.uhk.insertions.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.UUID;
 
 @Entity
@@ -21,20 +22,26 @@ public class User {
     private String email;
     @Column(name="telnum_column")
     private String telnum;
-    @Column(name="role_column")
-    private int role;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "id_user", referencedColumnName = "id_user"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "id_role", referencedColumnName = "id_role"))
 
+    private Collection<Role> roles;
     public User() {
     }
 
-    public User(String name, String surname, String password, String email, String telnum, int role) {
+    public User(String name, String surname, String password, String email, String telnum, Collection<Role> roles) {
         this.id_user=UUID.randomUUID();
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.email = email;
         this.telnum = telnum;
-        this.role = role;
+        this.roles = roles;
     }
 
     public String validateTelNum(String telnum){
@@ -92,11 +99,10 @@ public class User {
         this.telnum = telnum;
     }
 
-    public int getRole() {
-        return role;
+    public Collection<Role> getRoles() {
+        return roles;
     }
-
-    public void setRole(int role) {
-        this.role = role;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

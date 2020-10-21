@@ -1,22 +1,10 @@
 package cz.fim.uhk.insertions.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import cz.fim.uhk.insertions.model.User;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import cz.fim.uhk.insertions.web.dto.UserRegistrationDto;
 
-public class UserService {
-    private User user;
-    private String password;
-
-    public UserService(User user) {
-        this.user = user;
-        this.password=user.getPassword();
-    }
-
-    @Bean
-  public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-  }
-
+public interface UserService extends UserDetailsService{
+    User save(UserRegistrationDto registrationDto);
 }

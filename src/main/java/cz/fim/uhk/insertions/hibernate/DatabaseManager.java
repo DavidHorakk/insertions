@@ -12,8 +12,9 @@ public class DatabaseManager {
     public DatabaseManager(Session session) {
         if(session==null){
             this.session=SessionMaker.openSession();
-        }
+        }else{
         this.session=session;
+        }
     }
 
     /**
