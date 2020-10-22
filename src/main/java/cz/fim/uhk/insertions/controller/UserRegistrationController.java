@@ -1,4 +1,4 @@
-package cz.fim.uhk.insertions.web;
+package cz.fim.uhk.insertions.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
