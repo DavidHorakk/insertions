@@ -1,10 +1,7 @@
 package cz.fim.uhk.insertions.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="subcategory_table")
@@ -14,13 +11,17 @@ public class SubCategory {
     private int id_subcategory;
     @Column(name="name_column")
     private String name;
+    @ManyToOne
+    @JoinColumn(name="category_id_column")
+    private Category category;
 
     public SubCategory() {
     }
 
-    public SubCategory(int id_subcategory, String name) {
+    public SubCategory(int id_subcategory, String name, Category category) {
         this.id_subcategory = id_subcategory;
         this.name = name;
+        this.category = category;
     }
 
     public int getId_subcategory() {
@@ -37,5 +38,13 @@ public class SubCategory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

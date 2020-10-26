@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -31,10 +32,14 @@ public class User {
                     name = "id_role", referencedColumnName = "id_role"))
 
     private Collection<Role> roles;
+    @OneToMany
+    private List<Insertion> insertions;
+
+
     public User() {
     }
 
-    public User(String name, String surname, String password, String email, String telnum, Collection<Role> roles) {
+    public User(String name, String surname, String password, String email, String telnum, Collection<Role> roles, List<Insertion> insertions) {
         this.id_user=UUID.randomUUID();
         this.name = name;
         this.surname = surname;
@@ -42,6 +47,7 @@ public class User {
         this.email = email;
         this.telnum = telnum;
         this.roles = roles;
+        this.insertions=insertions;
     }
 
     public String validateTelNum(String telnum){
