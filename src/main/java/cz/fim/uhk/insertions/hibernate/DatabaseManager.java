@@ -212,5 +212,4 @@ public class DatabaseManager {
             deleteCategory(subcategories.get(i));
         }
     }
-
 }

@@ -3,14 +3,14 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Registration and Login App</title>
-
+    <title>My insertions</title>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{site.css}">
-</head>
+    <link rel="stylesheet" th:href="@{/bootstap_css/bootstrap.css}">
+
 <body>
 <!-- create navigation bar ( header) -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -37,23 +37,12 @@
 <br>
 
 <div class="container">
-    <h1>Newest insertions</h1>
-    <a th:href="@{/userInsertions}">My insertions</a>
+    <H1>MY INSERTIONS</H1>
+    <a th:href="@{/}">Back to main page</a>
 
-    <table class="table-bordered">
-        <thead>
-        <tr>
-            <th> Name </th>
-            <th> Surname </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${users}">
-            <td><span th:text="${book.getName()}"> Jméno </span></td>
-            <td><span th:text="${book.getSurname()}"> P?íjmení </span></td>
-        </tr>
-        </tbody>
-    </table>
+
 </div>
+
+
 </body>
 </html>
