@@ -8,6 +8,7 @@ import java.util.List;
 public class Category {
     @Id
     @Column(name="id_category")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_category;
     @Column(name="name_column")
     private String name;
@@ -18,7 +19,7 @@ public class Category {
     public Category() {
     }
 
-    public Category(int id_category, String name, List<SubCategory> subCategories) {
+    public Category(String name, List<SubCategory> subCategories) {
         this.id_category = id_category;
         this.name = name;
         this.subCategories=subCategories;

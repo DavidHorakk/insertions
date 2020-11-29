@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class SubCategory {
     @Id
     @Column(name="id_subcategory")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_subcategory;
     @Column(name="name_column")
     private String name;
@@ -18,7 +19,7 @@ public class SubCategory {
     public SubCategory() {
     }
 
-    public SubCategory(int id_subcategory, String name, Category category) {
+    public SubCategory(String name, Category category) {
         this.id_subcategory = id_subcategory;
         this.name = name;
         this.category = category;

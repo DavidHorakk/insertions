@@ -2,6 +2,7 @@ package cz.fim.uhk.insertions;
 
 import cz.fim.uhk.insertions.hibernate.DatabaseManager;
 import cz.fim.uhk.insertions.hibernate.SessionMaker;
+import cz.fim.uhk.insertions.hibernate.StaticDataDB;
 import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
@@ -26,14 +27,12 @@ public class InsertionsApplication {
 //        User user = new User("Jan","Novák","test","novakja@uhk.cz","123456789",1);
 //        UserService us = new UserService(user);
 //        us.passwordEncoder();
-
 //        User user = new User("Jan","Novák","test","novakja@uhk.cz","123456789",1);
-
-//        DatabaseManager dbm = new DatabaseManager(null);
 //        List<User> users = dbm.findAllUsers();
 //        System.out.println(users.get(0).getName());
 
-
+        //DatabaseManager dbm = new DatabaseManager(null);
+        //StaticDataDB.createCategories(dbm);
 
 
     }
