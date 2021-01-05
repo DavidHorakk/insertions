@@ -12,7 +12,7 @@ public class SubCategory {
     private int id_subcategory;
     @Column(name="name_column")
     private String name;
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="category_id_column")
     private Category category;
 

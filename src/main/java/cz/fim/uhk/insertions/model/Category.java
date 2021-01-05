@@ -2,6 +2,7 @@ package cz.fim.uhk.insertions.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="category_table")
@@ -12,14 +13,14 @@ public class Category {
     private int id_category;
     @Column(name="name_column")
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy="category")
     @Column(name="subcategories_column")
-    private List<SubCategory> subCategories;
+    private Set<SubCategory> subCategories;
 
     public Category() {
     }
 
-    public Category(String name, List<SubCategory> subCategories) {
+    public Category(String name, Set<SubCategory> subCategories) {
         this.id_category = id_category;
         this.name = name;
         this.subCategories=subCategories;
@@ -41,11 +42,11 @@ public class Category {
         this.name = name;
     }
 
-    public List<SubCategory> getSubCategories() {
+    public Set<SubCategory> getSubCategories() {
         return subCategories;
     }
 
-    public void setSubCategories(List<SubCategory> subCategories) {
+    public void setSubCategories(Set<SubCategory> subCategories) {
         this.subCategories = subCategories;
     }
 }

@@ -46,13 +46,15 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Category </th>
-            <th scope="col"> Sub-category </th>
+            <th scope="col"> Sub-categories </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="category : ${categories}">
             <td><span th:text="${category.getName()}"> Název </span></td>
-            <!--                    <td><span th:text="${category.getSubCategories()}"> Pod-kategorie </span></td>-->
+<!--            <td><span th:text="${category.getSubCategories()}"> Pod-kategorie </span></td>-->
+            <td th:each="subCategory : ${subCategories}" th:if="${subCategory.category.getId_category() == category.getId_category()}">
+            <span th:text="${subCategory.getName()}"></span></td>
         </tr>
         </tbody>
     </table>

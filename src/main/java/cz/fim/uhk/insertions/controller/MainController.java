@@ -32,6 +32,7 @@ public class MainController {
     @GetMapping("/Category/listCategory")
     public String categories(Model model) {
         model.addAttribute("categories", dbm.findAllCategories());
+        model.addAttribute("subCategories", dbm.findAllSubCategories());
         return "./Category/listCategory";
     }
 
