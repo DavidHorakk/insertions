@@ -3,6 +3,7 @@ package cz.fim.uhk.insertions.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name="insertion")
 public class Insertion {
 
     @Id
@@ -21,7 +22,7 @@ public class Insertion {
     @JoinColumn(name="category_id_column")
     private Category category;
     @OneToOne
-    @JoinColumn(name="subCategory_id_column")
+    @JoinColumn(name="sub_category_id_column")
     private SubCategory subCategory;
 
     public Insertion() {
