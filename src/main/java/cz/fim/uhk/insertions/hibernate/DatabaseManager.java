@@ -1,6 +1,7 @@
 package cz.fim.uhk.insertions.hibernate;
 
 import cz.fim.uhk.insertions.model.Category;
+import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
 import org.hibernate.Session;
@@ -212,4 +213,72 @@ public class DatabaseManager {
             deleteCategory(subcategories.get(i));
         }
     }
+
+    //==============================================================================================
+    //
+    //MODEL INSERTION.CLASS
+    //
+    //==============================================================================================
+
+    /**
+     * najde inzerát podle ID
+     * @param id integer klíč
+     * @return Vrací nalezený inzerát, pokud nenajde, inzerát se jmenuje notfound
+     */
+    public Insertion findInsertionByID(Long id){
+        Insertion insertion = session.load(Insertion.class, id);
+        if(insertion != null){
+            return insertion;
+        }
+        insertion = new Insertion();
+        insertion.setName("notfound");
+        return insertion;
+    }
+
+    /**
+     * Uloží instanci inzerátu do db
+     * @param insertion daný inzerát
+     * @return informace o úspěchu/neúspěchu
+     */
+    public String saveInsertion(Insertion insertion){
+        if(insertion != null){
+            Transaction tx = session.beginTransaction();
+            session.save(insertion);
+            tx.commit();
+            return "insertion "+insertion.getName()+"added to DB.";
+        }else{
+            return "Instance of insertion is empty (null)";
+        }
+    }
+
+
+    /**
+     * odstraní inzeráty pomocí jejího instance
+     * @param insertion instance inzerátu ke smazání
+     */
+    public void deleteInsertion(Insertion insertion){
+        session.delete(insertion);
+    }
+    /**
+     * aktualizuje záznam inzerátu, který se shoduje s instancí
+     * @param insertion instance uživatele
+     */
+    public void updateInsertion(Insertion insertion){
+        session.update(insertion);
+    }
+
+    public List<Insertion> findAllInsertions() {
+        return session.createQuery("SELECT a FROM Insertion a", Insertion.class).getResultList();
+    }
+
+    /**
+     * smaže všechny inzeráty
+     */
+    public void deleteAllInsertions(){
+        List<Insertion> insertions = findAllInsertions();
+        for (int i = 0; i < insertions.size(); i++){
+            deleteInsertion(insertions.get(i));
+        }
+    }
+
 }
