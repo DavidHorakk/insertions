@@ -94,7 +94,7 @@ public class MainController {
      */
     @GetMapping("/Insertion/listInsertion")
     public String insertions(Model model) {
-        model.addAttribute("insertion", dbm.findAllInsertions());
+        model.addAttribute("insertions", dbm.findAllInsertions());
         return "./Insertion/listInsertion";
     }
 
