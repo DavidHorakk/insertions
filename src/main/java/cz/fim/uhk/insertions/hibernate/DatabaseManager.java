@@ -27,11 +27,11 @@ public class DatabaseManager {
     //==============================================================================================
 
     /**
-     * Najde pomocí UUID konkrétního uživatele
-     * @param id kód ve tvaru "c5687b60-ac82-4c7c-811d-14ec55749141"
+     * Najde pomocí ID konkrétního uživatele
+     * @param id primární klíč integer
      * @return Pokud uživatel nebyl nelezen, atribut name="notfound"
      */
-    public User findUserByUUID(int id){
+    public User findUserByID(int id){
         User user = session.load(User.class, id);
         if(user != null){
             return user;
