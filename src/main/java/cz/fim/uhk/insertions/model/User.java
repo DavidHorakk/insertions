@@ -11,8 +11,8 @@ import java.util.UUID;
 @Table(name="user_table")
 public class User {
     @Id
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id_user;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id_user;
     @Column(name="name_column")
     private String name;
     @Column(name="surname_column")
@@ -40,7 +40,7 @@ public class User {
     }
 
     public User(String name, String surname, String password, String email, String telnum, Collection<Role> roles, List<Insertion> insertions) {
-        this.id_user=UUID.randomUUID();
+        this.id_user=id_user;
         this.name = name;
         this.surname = surname;
         this.password = password;
@@ -57,11 +57,11 @@ public class User {
         return telnum;
     }
 
-    public UUID getId_user() {
+    public int getId_user() {
         return id_user;
     }
 
-    public void setId_user(UUID id_user) {
+    public void setId_user(int id_user) {
         this.id_user = id_user;
     }
 

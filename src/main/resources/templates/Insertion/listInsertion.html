@@ -55,6 +55,9 @@
             <td><span th:text="${insertion.name}"> Název </span></td>
             <td><span th:text="${insertion.description}"> Popis </span></td>
             <td><span th:text="${insertion.price}"> Cena </span></td>
+            <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
+            <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
+            <td><span th:text="${insertion.user.name}"> U?ivatel </span></td>
 <!--            <td><span th:text="${category.getSubCategories()}"> Pod-kategorie </span></td>-->
 <!--            <td th:each="subCategory : ${subCategories}" th:if="${subCategory.category.getId_category() == category.getId_category()}">-->
 <!--            <span th:text="${subCategory.getName()}"></span></td>-->

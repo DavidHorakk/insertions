@@ -28,11 +28,11 @@ public class DatabaseManager {
 
     /**
      * Najde pomocí UUID konkrétního uživatele
-     * @param uuid kód ve tvaru "c5687b60-ac82-4c7c-811d-14ec55749141"
+     * @param id kód ve tvaru "c5687b60-ac82-4c7c-811d-14ec55749141"
      * @return Pokud uživatel nebyl nelezen, atribut name="notfound"
      */
-    public User findUserByUUID(String uuid){
-        User user = session.load(User.class, uuid);
+    public User findUserByUUID(int id){
+        User user = session.load(User.class, id);
         if(user != null){
             return user;
         }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="ISO-8859-1">
     <title>Create Category</title>
@@ -52,9 +53,15 @@
                     <label class="control-label" for="name"> Insertion price</label>
                     <input id="price" class="form-control" th:field="*{price}"
                            required autofocus="autofocus" />
-<!--                    <label class="control-label" for="name"> Insertion user</label>-->
-<!--                    <input id="user" class="form-control" th:field="*{user}"-->
-<!--                           required autofocus="autofocus" />-->
+                    <label class="control-label" for="name"> Insertion user</label>
+                    <input id="user" class="form-control" th:field="*{user}"
+                           required autofocus="autofocus" />
+                    <label class="control-label" for="name"> Insertion category</label>
+                    <input id="category" class="form-control" th:field="*{category}"
+                           required autofocus="autofocus" />
+                    <label class="control-label" for="name"> Insertion subcategory</label>
+                    <input id="subCategory" class="form-control" th:field="*{subCategory}"
+                           required autofocus="autofocus" />
 <!--                    <select th:field="*{category}">-->
 <!--                        <option th:each="*{category}">-->
 <!--                        </option>-->
