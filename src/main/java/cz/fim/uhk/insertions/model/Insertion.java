@@ -24,11 +24,14 @@ public class Insertion {
     @OneToOne
     @JoinColumn(name="sub_category_id_column")
     private SubCategory subCategory;
+    @Lob
+    @Column(name = "photo")
+    private byte[] photo;
 
     public Insertion() {
     }
 
-    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory) {
+    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory, byte[] photo) {
         this.id_insertion = id_insertion;
         this.name = name;
         this.description = description;
@@ -36,6 +39,7 @@ public class Insertion {
         this.user = user;
         this.category = category;
         this.subCategory = subCategory;
+        this.photo = photo;
     }
 
     public long getId_insertion() {
@@ -92,5 +96,17 @@ public class Insertion {
 
     public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public void setId_insertion(Long id_insertion) {
+        this.id_insertion = id_insertion;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }
