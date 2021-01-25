@@ -54,14 +54,23 @@
                     <input id="price" class="form-control" th:field="*{price}"
                            required autofocus="autofocus" />
                     <label class="control-label" for="name"> Insertion user</label>
-                    <input id="user" class="form-control" th:field="*{user}"
-                           required autofocus="autofocus" />
-                    <label class="control-label" for="name"> Insertion category</label>
-                    <input id="category" class="form-control" th:field="*{category}"
-                           required autofocus="autofocus" />
-                    <label class="control-label" for="name"> Insertion subcategory</label>
-                    <input id="subCategory" class="form-control" th:field="*{subCategory}"
-                           required autofocus="autofocus" />
+                    <input id="user" class="form-control" th:value="${#request.userPrincipal.getName()}"
+                           required disabled autofocus="autofocus" />
+<!--                    <select class="form-control" required="required"-->
+<!--                            th:value="${insertion.category}" name="location" id="location">-->
+<!--                        <option disabled="disabled" selected="selected" > &#45;&#45;-->
+<!--                            alege orasul &#45;&#45;</option>-->
+<!--                        <option th:each="test : ${insertion}" th:value="${test}"-->
+<!--                                th:text="${city.name}" ></option>-->
+<!--                    </select>-->
+<!--                    <label class="control-label" for="name"> Insertion category</label>-->
+<!--                    <input id="category" class="form-control" th:field="*{category}"-->
+<!--                           required autofocus="autofocus" />-->
+<!--                    <label class="control-label" for="name"> Insertion subcategory</label>-->
+<!--                    <input id="subCategory" class="form-control" th:field="*{subCategory}"-->
+<!--                           required autofocus="autofocus" />-->
+<!--                    <span sec:authentication="principal.getUsername()"></span>-->
+<!--                    <span th:text="${#request.userPrincipal.getName()}"></span>-->
 <!--                    <select th:field="*{category}">-->
 <!--                        <option th:each="*{category}">-->
 <!--                        </option>-->

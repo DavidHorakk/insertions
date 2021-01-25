@@ -5,6 +5,8 @@ import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
+import cz.fim.uhk.insertions.repository.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MainController {
     DatabaseManager dbm = new DatabaseManager(null);
+    private UserRepository userRepository;
+
+    public MainController(UserRepository userRepository) {
+        super();
+        this.userRepository = userRepository;
+    }
+
     /*============================================================================
      * USER - LOGIN, HOME PAGE
      ============================================================================*/
@@ -116,9 +125,12 @@ public class MainController {
      * @return creates new Insertion in dbs
      */
     @PostMapping("/Insertion/createInsertion")
-    public String createInsertion(@ModelAttribute Insertion insertion, @ModelAttribute User user, Model model) {
+    public String createInsertion(@ModelAttribute Insertion insertion,Model model) {
         model.addAttribute("insertion", insertion);
-        model.addAttribute("users", dbm.findAllUsers());
+        model.addAttribute("categories", dbm.findAllCategories());
+        //model.addAttribute("users", dbm.findAllUsers());
+        String usert = SecurityContextHolder.getContext().getAuthentication().getName();
+        insertion.setUser(userRepository.findByEmail(usert));
         dbm.saveInsertion(insertion);
         return "./Insertion/listInsertion";
     }

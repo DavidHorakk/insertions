@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name="user_table")
@@ -111,4 +110,5 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
+
 }
