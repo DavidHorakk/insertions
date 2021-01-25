@@ -41,6 +41,11 @@ public class DatabaseManager {
         return user;
     }
 
+    public User findUserByMail(String mail){
+        String mailprep = "\'"+mail+"\'";
+       return session.createQuery("SELECT a FROM User a WHERE a.email = " +"'mail'", User.class).getSingleResult();
+    }
+
     /**
      * Uloží instanci uživatele do databáze
      * @param user ukládaný uživatel
