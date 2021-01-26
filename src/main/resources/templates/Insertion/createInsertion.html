@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="cs" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Create Category</title>
@@ -47,43 +46,34 @@
                     <label class="control-label" for="name"> Insertion name</label>
                     <input id="name" class="form-control" th:field="*{name}"
                            required autofocus="autofocus" />
-                    <label class="control-label" for="name"> Insertion description</label>
+                    <label class="control-label" for="description"> Insertion description</label>
                     <input id="description" class="form-control" th:field="*{description}"
                            required autofocus="autofocus" />
-                    <label class="control-label" for="name"> Insertion price</label>
+                    <label class="control-label" for="price"> Insertion price</label>
                     <input id="price" class="form-control" th:field="*{price}"
                            required autofocus="autofocus" />
-                    <label class="control-label" for="name"> Insertion user</label>
+                    <label class="control-label" for="user"> Insertion user</label>
                     <input id="user" class="form-control" th:value="${#request.userPrincipal.getName()}"
                            required disabled autofocus="autofocus" />
-<!--                    <select class="form-control" required="required"-->
-<!--                            th:value="${insertion.category}" name="location" id="location">-->
-<!--                        <option disabled="disabled" selected="selected" > &#45;&#45;-->
-<!--                            alege orasul &#45;&#45;</option>-->
-<!--                        <option th:each="test : ${insertion}" th:value="${test}"-->
-<!--                                th:text="${city.name}" ></option>-->
-<!--                    </select>-->
-<!--                    <label class="control-label" for="name"> Insertion category</label>-->
-<!--                    <input id="category" class="form-control" th:field="*{category}"-->
-<!--                           required autofocus="autofocus" />-->
-<!--                    <label class="control-label" for="name"> Insertion subcategory</label>-->
-<!--                    <input id="subCategory" class="form-control" th:field="*{subCategory}"-->
-<!--                           required autofocus="autofocus" />-->
-<!--                    <span sec:authentication="principal.getUsername()"></span>-->
-<!--                    <span th:text="${#request.userPrincipal.getName()}"></span>-->
-<!--                    <select th:field="*{category}">-->
-<!--                        <option th:each="*{category}">-->
-<!--                        </option>-->
-<!--                    </select>-->
-<!--                    <select th:field="*{subCategory}">-->
-<!--                        <option th:each="*{subCategory}">-->
-<!--                        </option>-->
-<!--                    </select>-->
+                    <label class="control-label" for="category"> Insertion category</label>
+                    <select th:name="id_category" class="form-control" required="required" id="category">
+                        <option disabled="disabled" selected="selected">select category</option>
+                        <option  th:each="category : ${categories}"
+                                 th:value="${category.id_category}"
+                                 th:text="${category.getName()}" ></option>
+                    </select>
+                    <label class="control-label" for="subCategory"> Insertion subCategory</label>
+                    <select th:name="id_subcategory" class="form-control" required="required" id="subCategory">
+                        <option disabled="disabled" selected="selected">select category</option>
+                        <option th:each="subCategory : ${subCategories}"
+                                th:if="${subCategory.category.getId_category() == 1}"
+                                th:value="${subCategory.id_subcategory}"
+                                th:text="${subCategory.getName()}" ></option>
+                    </select>
                     <button type="submit" class="btn btn-success">Create</button>
                 </div>
 
             </form>
-
         </div>
     </div>
 </div>

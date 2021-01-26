@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -115,6 +116,8 @@ public class MainController {
     @GetMapping("/Insertion/createInsertion")
     public String createInsertionForm(Model model) {
         model.addAttribute("insertion", new Insertion());
+        model.addAttribute("categories", dbm.findAllCategories());
+        model.addAttribute("subCategories", dbm.findAllSubCategories());
         return "./Insertion/createInsertion";
     }
 
@@ -125,12 +128,14 @@ public class MainController {
      * @return creates new Insertion in dbs
      */
     @PostMapping("/Insertion/createInsertion")
-    public String createInsertion(@ModelAttribute Insertion insertion,Model model) {
+    public String createInsertion(@ModelAttribute Insertion insertion,Model model,
+                                  @RequestParam("id_category")int id_category,
+                                  @RequestParam("id_subcategory")int id_subcategory) {
         model.addAttribute("insertion", insertion);
-        model.addAttribute("categories", dbm.findAllCategories());
-        //model.addAttribute("users", dbm.findAllUsers());
-        String usert = SecurityContextHolder.getContext().getAuthentication().getName();
-        insertion.setUser(userRepository.findByEmail(usert));
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        insertion.setUser(userRepository.findByEmail(userEmail));
+        insertion.setCategory(dbm.findCategoryByID(id_category));
+        insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
         dbm.saveInsertion(insertion);
         return "./Insertion/listInsertion";
     }
