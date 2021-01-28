@@ -40,9 +40,29 @@
 
 <div class="container">
     <H1>MY INSERTIONS</H1>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"> Insertion </th>
+            <th scope="col"> Popis </th>
+            <th scope="col"> Cena </th>
+            <th scope="col"> Kategorie </th>
+            <th scope="col"> Pod Kategorie </th>
+            <th scope="col"> Uzivatel </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="insertion : ${insertions}">
+            <td><span th:text="${insertion.name}"> Název </span></td>
+            <td><span th:text="${insertion.description}"> Popis </span></td>
+            <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
+            <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
+            <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
+            <td><span th:text="${insertion.user.email}"> Uzivatel </span></td>
+        </tr>
+        </tbody>
+    </table>
     <a th:href="@{/}">Back to main page</a>
-
-
 </div>
 
 

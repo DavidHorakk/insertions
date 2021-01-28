@@ -50,23 +50,21 @@
             <th scope="col"> Cena </th>
             <th scope="col"> Kategorie </th>
             <th scope="col"> Pod Kategorie </th>
-            <th scope="col"> U?ivatel </th>
+            <th scope="col"> Uzivatel </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="insertion : ${insertions}">
             <td><span th:text="${insertion.name}"> Název </span></td>
             <td><span th:text="${insertion.description}"> Popis </span></td>
-            <td><span th:text="${insertion.price} + 'K?'"> Cena </span></td>
+            <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
             <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
             <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
-            <td><span th:text="${insertion.user.name}"> U?ivatel </span></td>
-<!--            <td><span th:text="${category.getSubCategories()}"> Pod-kategorie </span></td>-->
-<!--            <td th:each="subCategory : ${subCategories}" th:if="${subCategory.category.getId_category() == category.getId_category()}">-->
-<!--            <span th:text="${subCategory.getName()}"></span></td>-->
+            <td><span th:text="${insertion.user.name}"> Uzivatel </span></td>
         </tr>
         </tbody>
     </table>
+    <a th:href="@{/}">Back to main page</a>
 </div>
 </body>
 </html>

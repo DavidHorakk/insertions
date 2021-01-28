@@ -286,6 +286,10 @@ public class DatabaseManager {
         return session.createQuery("SELECT a FROM Insertion a", Insertion.class).getResultList();
     }
 
+    public List<Insertion> findAllInsertionsByUser(String email) {
+        return session.createQuery("SELECT a FROM Insertion a WHERE a.user.email =" + "'"+email+"'", Insertion.class).getResultList();
+    }
+
     /**
      * smaže všechny inzeráty
      */

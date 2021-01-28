@@ -19,6 +19,7 @@ public class MainController {
     DatabaseManager dbm = new DatabaseManager(null);
     private UserRepository userRepository;
 
+
     public MainController(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
@@ -35,7 +36,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("users", dbm.findAllUsers());
+        model.addAttribute("insertions", dbm.findAllInsertions());
         return "index";
     }
     /*============================================================================
@@ -48,7 +49,8 @@ public class MainController {
      */
     @GetMapping("/userInsertions")
     public String userInsertions(Model model) {
-        model.addAttribute("users", dbm.findAllUsers());
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("insertions", dbm.findAllInsertionsByUser(userEmail));
         return "userInsertions";
     }
     /*============================================================================
