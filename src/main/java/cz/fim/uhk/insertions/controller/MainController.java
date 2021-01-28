@@ -110,11 +110,6 @@ public class MainController {
     @GetMapping("/Insertion/listInsertion")
     public String insertions(Model model) {
         model.addAttribute("insertions", dbm.findAllInsertions());
-//        model.addAttribute("image", Arrays.toString(
-//                (Base64.getEncoder().encode(
-//                        dbm.findAllInsertions().get(0).getPhoto())
-//                )
-//        ));
         return "./Insertion/listInsertion";
     }
 
@@ -139,7 +134,14 @@ public class MainController {
     @GetMapping("/Insertion/detailInsertion")
     public String detailInsertionForm(Model model,
                                       @RequestParam("id")long id) {
-        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        Insertion insertion = dbm.findInsertionByID(id);
+        String format = insertion.getFormat();
+        byte[] photo = Base64.getEncoder().encode(insertion.getPhoto());
+        String photoStr = new String(photo);
+        String src = "data:image/"+format+";base64,"+photoStr;
+        model.addAttribute("insertion", insertion);
+        model.addAttribute("source", src);
+        System.out.println(src);
         return "./Insertion/detailInsertion";
     }
 
@@ -195,6 +197,7 @@ public class MainController {
         insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
         try {
             insertion.setPhoto(multiPartFile.getBytes());
+            insertion.setFormat(multiPartFile.getContentType());
         } catch (IOException e) {
             e.printStackTrace();
         }
