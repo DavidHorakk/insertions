@@ -46,21 +46,21 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Insertion </th>
-            <th scope="col"> Popis </th>
-            <th scope="col"> Cena </th>
-            <th scope="col"> Kategorie </th>
-            <th scope="col"> Pod Kategorie </th>
-            <th scope="col"> Uzivatel </th>
+            <th scope="col"> Description </th>
+            <th scope="col"> Price </th>
+            <th scope="col"> Category </th>
+            <th scope="col"> Sub category </th>
+            <th scope="col"> User </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="insertion : ${insertions}">
-            <td><span th:text="${insertion.name}"> Název </span></td>
-            <td><span th:text="${insertion.description}"> Popis </span></td>
-            <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
-            <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
-            <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
-            <td><span th:text="${insertion.user.name}"> Uzivatel </span></td>
+            <td><a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}" ><span th:text="${insertion.name}"> Insertion </span></a></td>
+            <td><span th:text="${insertion.description}"> Description </span></td>
+            <td><span th:text="${insertion.price} + ' Kc'"> Price </span></td>
+            <td><span th:text="${insertion.category.name}"> Category </span></td>
+            <td><span th:text="${insertion.subCategory.name}"> Sub category </span></td>
+            <td><span th:text="${insertion.user.name}"> User </span></td>
         </tr>
         </tbody>
     </table>

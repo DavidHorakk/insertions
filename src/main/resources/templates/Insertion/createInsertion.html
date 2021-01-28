@@ -66,16 +66,17 @@
                     <select th:name="id_subcategory" class="form-control" required="required" id="subCategory">
                         <option disabled="disabled" selected="selected">select category</option>
                         <option th:each="subCategory : ${subCategories}"
-                                th:if="${subCategory.category.getId_category() == 1}"
                                 th:value="${subCategory.id_subcategory}"
                                 th:text="${subCategory.getName()}" ></option>
                     </select>
+                    <!--                                th:if="${subCategory.category.getId_category() == 1}"-->
                     <label class="control-label" for="file">Select image:</label>
                     <input th:name="file" type="file" id="file" name="file" accept="image/*">
                     <button type="submit" class="btn btn-success">Create</button>
                 </div>
 
             </form>
+            <a th:href="@{/}">Back to main page</a>
         </div>
     </div>
 </div>

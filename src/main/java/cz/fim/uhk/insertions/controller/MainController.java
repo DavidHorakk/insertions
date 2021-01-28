@@ -1,11 +1,9 @@
 package cz.fim.uhk.insertions.controller;
 
-import antlr.StringUtils;
 import cz.fim.uhk.insertions.hibernate.DatabaseManager;
 import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
-import cz.fim.uhk.insertions.model.User;
 import cz.fim.uhk.insertions.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,17 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.List;
+
 
 @Controller
 public class MainController {
     DatabaseManager dbm = new DatabaseManager(null);
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
 
     public MainController(UserRepository userRepository) {
@@ -140,13 +134,46 @@ public class MainController {
     /**
      * Method that redirects to page where you can see detail of insertion
      * @param model of Insertion
-     * @return page where you can create new insertion
+     * @return page where you can see details insertion
      */
     @GetMapping("/Insertion/detailInsertion")
     public String detailInsertionForm(Model model,
                                       @RequestParam("id")long id) {
         model.addAttribute("insertion", dbm.findInsertionByID(id));
         return "./Insertion/detailInsertion";
+    }
+
+    /**
+     * Method that redirects to page where you can see edit page of insertion
+     * @param model of Insertion
+     * @return page where you can edit insertion
+     */
+    @GetMapping("/Insertion/editInsertion")
+    public String editInsertionForm(Model model,
+                                      @RequestParam("id")long id) {
+        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        model.addAttribute("categories", dbm.findAllCategories());
+        model.addAttribute("subCategories", dbm.findAllSubCategories());
+        return "./Insertion/editInsertion";
+    }
+    /**
+     * Method that redirects to page where you can see edit page of insertion
+     * @param model of Insertion
+     * @return page where you can edit insertion
+     */
+    @PostMapping("/Insertion/editInsertion")
+    public String editInsertion(@ModelAttribute Insertion insertion,Model model,
+                                    @RequestParam("id")long id,
+                                    @RequestParam("id_category")int id_category,
+                                    @RequestParam("id_subcategory")int id_subcategory) {
+        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        insertion.setId_insertion(id);
+        insertion.setUser(userRepository.findByEmail(userEmail));
+        insertion.setCategory(dbm.findCategoryByID(id_category));
+        insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
+        dbm.updateInsertion(insertion);
+        return "redirect:/Insertion/detailInsertion?id="+id;
     }
 
     /**
@@ -160,9 +187,8 @@ public class MainController {
                                   @RequestParam("id_category")int id_category,
                                   @RequestParam("id_subcategory")int id_subcategory,
                                   @RequestParam(value="file", required = false) MultipartFile multiPartFile
-                                  ) {
+    ) {
         model.addAttribute("insertion", insertion);
-
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         insertion.setUser(userRepository.findByEmail(userEmail));
         insertion.setCategory(dbm.findCategoryByID(id_category));
@@ -173,7 +199,7 @@ public class MainController {
             e.printStackTrace();
         }
         dbm.saveInsertion(insertion);
-        return "./Insertion/listInsertion";
+        return "redirect:/Insertion/listInsertion";
     }
 
 

@@ -4,6 +4,7 @@ import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -276,10 +277,12 @@ public class DatabaseManager {
     }
     /**
      * aktualizuje záznam inzerátu, který se shoduje s instancí
-     * @param insertion instance uživatele
+     * @param insertion instance inzerátu
      */
     public void updateInsertion(Insertion insertion){
-        session.update(insertion);
+        Transaction tx = session.beginTransaction();
+        session.merge(insertion);
+        tx.commit();
     }
 
     public List<Insertion> findAllInsertions() {

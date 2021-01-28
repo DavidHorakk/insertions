@@ -40,6 +40,8 @@
 
 <div class="container">
     <H1>MY INSERTIONS</H1>
+    <a th:href="@{/Insertion/createInsertion}">create insertion</a>
+
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -53,7 +55,7 @@
         </thead>
         <tbody>
         <tr th:each="insertion : ${insertions}">
-            <td><span th:text="${insertion.name}"> Název </span></td>
+            <td><a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}" ><span th:text="${insertion.name}"> Název </span></a></td>
             <td><span th:text="${insertion.description}"> Popis </span></td>
             <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
             <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
