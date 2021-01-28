@@ -54,7 +54,8 @@
         </tr>
         </thead>
         <tbody>
-            <td><span th:text="${insertion.name}"> Název </span></td>
+        <tr th:each="insertion : ${insertions}">
+            <td><a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}" ><span th:text="${insertion.name}"> Název </span></a></td>
             <td><span th:text="${insertion.description}"> Popis </span></td>
             <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
             <td><span th:text="${insertion.category.name}"> Kategorie </span></td>

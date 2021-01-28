@@ -124,6 +124,18 @@ public class MainController {
     }
 
     /**
+     * Method that redirects to page where you can see detail of insertion
+     * @param model of Insertion
+     * @return page where you can create new insertion
+     */
+    @GetMapping("/Insertion/detailInsertion")
+    public String detailInsertionForm(Model model,
+                                      @RequestParam("id")long id) {
+        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        return "./Insertion/detailInsertion";
+    }
+
+    /**
      * Redirects to method that creates Insertion
      * @param insertion instance of Insertion
      * @param model model of Insertion
