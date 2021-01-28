@@ -27,11 +27,13 @@ public class Insertion {
     @Lob
     @Column(name = "photo")
     private byte[] photo;
+    @Column(name = "format")
+    private String format;
 
     public Insertion() {
     }
 
-    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory, byte[] photo) {
+    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory, byte[] photo, String format) {
         this.id_insertion = id_insertion;
         this.name = name;
         this.description = description;
@@ -40,6 +42,7 @@ public class Insertion {
         this.category = category;
         this.subCategory = subCategory;
         this.photo = photo;
+        this.format = format;
     }
 
     public long getId_insertion() {
@@ -108,5 +111,13 @@ public class Insertion {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 }

@@ -59,6 +59,8 @@
                     <label class="control-label" for="subCategory"> Insertion subcategory</label>
                     <input id="subCategory" class="form-control" th:value="${insertion.subCategory.name}"
                            required disabled autofocus="autofocus" />
+                    <img th:src="${source}" alt="Red dot">
+
                 </div>
             <a th:href="@{/}">Back to main page</a>
         </div>
