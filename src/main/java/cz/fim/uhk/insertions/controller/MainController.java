@@ -1,5 +1,6 @@
 package cz.fim.uhk.insertions.controller;
 
+import antlr.StringUtils;
 import cz.fim.uhk.insertions.hibernate.DatabaseManager;
 import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
@@ -13,6 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -107,6 +116,11 @@ public class MainController {
     @GetMapping("/Insertion/listInsertion")
     public String insertions(Model model) {
         model.addAttribute("insertions", dbm.findAllInsertions());
+//        model.addAttribute("image", Arrays.toString(
+//                (Base64.getEncoder().encode(
+//                        dbm.findAllInsertions().get(0).getPhoto())
+//                )
+//        ));
         return "./Insertion/listInsertion";
     }
 
@@ -144,12 +158,20 @@ public class MainController {
     @PostMapping("/Insertion/createInsertion")
     public String createInsertion(@ModelAttribute Insertion insertion,Model model,
                                   @RequestParam("id_category")int id_category,
-                                  @RequestParam("id_subcategory")int id_subcategory) {
+                                  @RequestParam("id_subcategory")int id_subcategory,
+                                  @RequestParam(value="file", required = false) MultipartFile multiPartFile
+                                  ) {
         model.addAttribute("insertion", insertion);
+
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
         insertion.setUser(userRepository.findByEmail(userEmail));
         insertion.setCategory(dbm.findCategoryByID(id_category));
         insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
+        try {
+            insertion.setPhoto(multiPartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         dbm.saveInsertion(insertion);
         return "./Insertion/listInsertion";
     }

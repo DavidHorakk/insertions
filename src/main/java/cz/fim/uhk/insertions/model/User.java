@@ -34,7 +34,6 @@ public class User {
     @OneToMany
     private List<Insertion> insertions;
 
-
     public User() {
     }
 

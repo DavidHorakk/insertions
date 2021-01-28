@@ -32,6 +32,8 @@ public class InsertionsApplication {
 //        System.out.println(users.get(0).getName());
 
 //          DatabaseManager dbm = new DatabaseManager(null);
+////        List<User> users = dbm.findAllUsers();
+////        System.out.println("TADY" + users.get(0).getId_user());
 //          StaticDataDB.createCategories(dbm);
 
 
