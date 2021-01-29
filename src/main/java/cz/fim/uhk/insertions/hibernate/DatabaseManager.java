@@ -42,10 +42,10 @@ public class DatabaseManager {
         return user;
     }
 
-    public User findUserByMail(String mail){
-        String mailprep = "\'"+mail+"\'";
-       return session.createQuery("SELECT a FROM User a WHERE a.email = " +"'mail'", User.class).getSingleResult();
-    }
+//    public User findUserByMail(String mail){
+//        String mailprep = "\'"+mail+"\'";
+//       return session.createQuery("SELECT a FROM User a WHERE a.email = " +"'mail'", User.class).getSingleResult();
+//    }
 
     public User findUserByName(String name){
         User user = session.load(User.class, name);
@@ -273,7 +273,9 @@ public class DatabaseManager {
      * @param insertion instance inzerátu ke smazání
      */
     public void deleteInsertion(Insertion insertion){
+        Transaction tx = session.beginTransaction();
         session.delete(insertion);
+        tx.commit();
     }
     /**
      * aktualizuje záznam inzerátu, který se shoduje s instancí

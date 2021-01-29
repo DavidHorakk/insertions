@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Base64;
 
 
 @Controller
@@ -203,6 +204,19 @@ public class MainController {
         }
         dbm.saveInsertion(insertion);
         return "redirect:/Insertion/listInsertion";
+    }
+
+    /**
+     * Deletes insertion and redirects back to insertions made by specific user,
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/Insertion/deleteInsertion")
+    public String deleteInsertion(@RequestParam("id") long id){
+          Insertion deleted = dbm.findInsertionByID(id);
+            dbm.deleteInsertion(deleted);
+        return "redirect:/userInsertions";
     }
 
 

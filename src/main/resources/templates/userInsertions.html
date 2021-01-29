@@ -61,6 +61,7 @@
             <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
             <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
             <td><span th:text="${insertion.user.email}"> Uzivatel </span></td>
+            <td><a th:href="@{/Insertion/deleteInsertion(id=${insertion.id_insertion})}" > Smazat </a></td>
         </tr>
         </tbody>
     </table>
