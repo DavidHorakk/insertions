@@ -41,6 +41,19 @@
 <div class="container">
     <h1>Newest insertions</h1>
     <a th:href="@{/userInsertions}">My insertions</a>
+    <a th:href="@{/Insertion/createInsertion}">create insertion</a>
+
+    <form th:action="@{/Insertion/listInsertion}" method="post" th:object="${categories}">
+        <label class="control-label" for="category"> Filter category</label>
+        <select th:name="id_category" class="form-control" required="required" id="category">
+            <option disabled="disabled" selected="selected">select category</option>
+            <option  th:each="category : ${categories}"
+                     th:value="${category.id_category}"
+                     th:text="${category.getName()}" ></option>
+        </select>
+        <button type="submit" class="btn btn-success">Filter</button>
+    </form>
+
 
     <table class="table">
         <thead class="thead-dark">

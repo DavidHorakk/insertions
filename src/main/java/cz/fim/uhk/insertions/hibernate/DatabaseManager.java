@@ -86,7 +86,9 @@ public class DatabaseManager {
      * @param user instance uživatele
      */
     public void updateUser(User user){
-        session.update(user);
+        Transaction tx = session.beginTransaction();
+        session.merge(user);
+        tx.commit();
     }
 
     /**
@@ -214,7 +216,9 @@ public class DatabaseManager {
      * @param subCategory instance uživatele
      */
     public void updateSubCategory(SubCategory subCategory){
-        session.update(subCategory);
+        Transaction tx = session.beginTransaction();
+        session.merge(subCategory);
+        tx.commit();
     }
     public List<SubCategory> findAllSubCategories() {
         return session.createQuery("SELECT a FROM SubCategory a", SubCategory.class).getResultList();
@@ -282,13 +286,17 @@ public class DatabaseManager {
      * @param insertion instance inzerátu
      */
     public void updateInsertion(Insertion insertion){
-        Transaction tx = session.beginTransaction();
-        session.merge(insertion);
-        tx.commit();
+            Transaction tx = session.beginTransaction();
+            session.merge(insertion);
+            tx.commit();
     }
 
     public List<Insertion> findAllInsertions() {
         return session.createQuery("SELECT a FROM Insertion a", Insertion.class).getResultList();
+    }
+
+    public List<Insertion> findFilteredInsertions(int category) {
+        return session.createQuery("SELECT a FROM Insertion a WHERE (a.category.id_category =" + "'"+category+"')", Insertion.class).getResultList();
     }
 
     public List<Insertion> findAllInsertionsByUser(String email) {

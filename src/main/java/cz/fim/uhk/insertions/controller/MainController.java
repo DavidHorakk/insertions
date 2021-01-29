@@ -41,6 +41,7 @@ public class MainController {
     @GetMapping("/")
     public String home(Model model) {
         model.addAttribute("insertions", dbm.findAllInsertions());
+        model.addAttribute("categories", dbm.findAllCategories());
         return "index";
     }
     /*============================================================================
@@ -218,6 +219,18 @@ public class MainController {
             dbm.deleteInsertion(deleted);
         return "redirect:/userInsertions";
     }
+
+    /**
+     * Method that redirects to list of filtered Insertions
+     * @param model of all Insertions
+     * @return redirects tp page where you can see filtered Insertions
+     */
+    @PostMapping("/Insertion/listInsertion")
+    public String filterInsertion(Model model, @RequestParam("id_category")int id_category) {
+        model.addAttribute("insertions", dbm.findFilteredInsertions(id_category));
+        return "./Insertion/listInsertion";
+    }
+
 
 
 }
