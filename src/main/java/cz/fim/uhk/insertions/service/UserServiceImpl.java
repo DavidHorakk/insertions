@@ -35,8 +35,12 @@ public class UserServiceImpl implements UserService{
         User user = new User(registrationDto.getName(),
                 registrationDto.getSurname(),passwordEncoder.encode(registrationDto.getPassword()),
                 registrationDto.getEmail(), registrationDto.getTelnum(), Collections.singletonList(new Role("ROLE_USER")), null);
-
-        return userRepository.save(user);
+        User checkUser = userRepository.findByEmail(registrationDto.getEmail());
+        if(checkUser == null){
+            return userRepository.save(user);
+        }else{
+            throw new UsernameNotFoundException("User with this email already exists");
+        }
     }
 
     @Override
