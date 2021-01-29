@@ -209,7 +209,6 @@ public class MainController {
 
     /**
      * Deletes insertion and redirects back to insertions made by specific user,
-     *
      * @param id
      * @return
      */

@@ -38,6 +38,9 @@
                 <div class="alert alert-info">You've successfully registered
                     to our awesome app!</div>
             </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger">User with such email already exists.</div>
+            </div>
 
             <h1>Registration</h1>
 
