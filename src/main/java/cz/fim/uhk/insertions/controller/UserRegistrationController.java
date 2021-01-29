@@ -1,5 +1,6 @@
 package cz.fim.uhk.insertions.controller;
 
+import cz.fim.uhk.insertions.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,11 +14,13 @@ import cz.fim.uhk.insertions.web.dto.UserRegistrationDto;
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
-    private UserService userService;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserRegistrationController(UserService userService) {
+    public UserRegistrationController(UserService userService, UserRepository userRepository) {
         super();
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute("user")
@@ -32,7 +35,10 @@ public class UserRegistrationController {
 
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
-        userService.save(registrationDto);
-        return "redirect:/login";
+        if(userRepository.findByEmail(registrationDto.getEmail()) == null) {
+            userService.save(registrationDto);
+            return "redirect:/login";
+        }
+            return "redirect:/registration";
     }
 }
