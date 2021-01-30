@@ -40,22 +40,24 @@
 
 <div class="container">
     <h1>Newest insertions</h1>
-    <a th:href="@{/userInsertions}">My insertions</a>
-    <a th:href="@{/Insertion/createInsertion}">create insertion</a>
-
-    <form th:action="@{/Insertion/listInsertion}" method="post" th:object="${categories}">
+    <a th:href="@{/userInsertions}">My insertions |</a>
+    <a th:href="@{/Insertion/createInsertion}"> Create insertion</a>
+<div class="filter-div">
+    <form th:action="@{/}" method="post" th:object="${categories}">
+        <br>
         <label class="control-label" for="category"> Filter category</label>
-        <select th:name="id_category" class="form-control" required="required" id="category">
+        <select th:name="id_category" class="form-control filter" required="required" id="category" onchange="this.form.submit()">
             <option disabled="disabled" selected="selected">select category</option>
             <option  th:each="category : ${categories}"
                      th:value="${category.id_category}"
                      th:text="${category.getName()}" ></option>
         </select>
-        <button type="submit" class="btn btn-success">Filter</button>
+<!--        <button type="submit" class="btn btn-success">Filter</button>-->
     </form>
-
-
-    <table class="table">
+    <input type="text" id="filter" onkeyup="myFunction()" placeholder="Search in table...">
+</div>
+    <br>
+    <table id="myTable" class="table">
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Insertion </th>
@@ -64,6 +66,7 @@
             <th scope="col"> Category </th>
             <th scope="col"> Sub category </th>
             <th scope="col"> User </th>
+            <th scope="col"> Date </th>
         </tr>
         </thead>
         <tbody>
@@ -74,9 +77,17 @@
             <td><span th:text="${insertion.category.name}"> Category </span></td>
             <td><span th:text="${insertion.subCategory.name}"> Sub category </span></td>
             <td><span th:text="${insertion.user.email}"> User </span></td>
+            <td><span th:text="${insertion.created}"> Date </span></td>
         </tr>
         </tbody>
     </table>
 </div>
 </body>
+<script>
+    function myFunction() {
+        const filter = document.querySelector('#filter').value.toUpperCase();
+        const trs = document.querySelectorAll('#myTable tr:not(.header)');
+        trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
+    }
+</script>
 </html>

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
-    private Session session;
+    private final Session session;
 
     public DatabaseManager(Session session) {
         if(session==null){
@@ -48,7 +48,8 @@ public class DatabaseManager {
         Date today = Utilities.getCurrentDate();
         if(insertions.size()>0){
             for (Insertion insertion: insertions) {
-                if(insertion.getExpired()==today){
+                System.out.println(insertion.getExpired().compareTo(today));
+                if(insertion.getExpired().compareTo(today)<=0){
                     deleteInsertion(insertion);
                 }
             }

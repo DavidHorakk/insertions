@@ -3,6 +3,7 @@ package cz.fim.uhk.insertions.controller;
 import cz.fim.uhk.insertions.hibernate.DatabaseManager;
 import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
+import cz.fim.uhk.insertions.model.Role;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.repository.UserRepository;
 import cz.fim.uhk.insertions.util.Utilities;
@@ -15,15 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Date;
+import java.util.Collection;
 
 
 @Controller
 public class MainController {
     DatabaseManager dbm = new DatabaseManager(null);
     private final UserRepository userRepository;
+
+
 
 
     public MainController(UserRepository userRepository) {
@@ -42,6 +46,7 @@ public class MainController {
 
     @GetMapping("/")
     public String home(Model model) {
+        dbm.checkForExpiredInsertions();
         model.addAttribute("insertions", dbm.findAllInsertions());
         model.addAttribute("categories", dbm.findAllCategories());
         return "index";
@@ -57,7 +62,18 @@ public class MainController {
     @GetMapping("/userInsertions")
     public String userInsertions(Model model) {
         String userEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("insertions", dbm.findAllInsertionsByUser(userEmail));
+        Collection<Role> roles = userRepository.findByEmail(userEmail).getRoles();
+        for (Role role:roles) {
+            if(role.getName().equals("ROLE_ADMIN")){
+                model.addAttribute("insertions", dbm.findAllInsertions());
+                model.addAttribute("categories", dbm.findAllCategories());
+                break;
+            }else{
+                model.addAttribute("insertions", dbm.findAllInsertionsByUser(userEmail));
+                model.addAttribute("categories", dbm.findAllCategories());
+            }
+        }
+
         return "userInsertions";
     }
     /*============================================================================
@@ -74,18 +90,6 @@ public class MainController {
         model.addAttribute("categories", dbm.findAllCategories());
         model.addAttribute("subCategories", dbm.findAllSubCategories());
         return "./Category/listCategory";
-    }
-
-    /**
-     * Method that redirects to page where you can create category
-     * @param model of category
-     * @return page where you can create new category
-     */
-    @GetMapping("/Category/createCategory")
-    public String createCategoryForm(Model model) {
-        model.addAttribute("category", new Category());
-        model.addAttribute("subCategory", new SubCategory());
-        return "./Category/createCategory";
     }
 
     /**
@@ -106,17 +110,6 @@ public class MainController {
     /*============================================================================
      * INSERTION
      ============================================================================*/
-    /**
-     * Method that redirects to list of all Insertion
-     * @param model of all Insertions
-     * @return redirects tp page where you can see all Insertions
-     */
-    @GetMapping("/Insertion/listInsertion")
-    public String insertions(Model model) {
-        model.addAttribute("insertions", dbm.findAllInsertions());
-        return "./Insertion/listInsertion";
-    }
-
     /**
      * Method that redirects to page where you can create insertion
      * @param model of Insertion
@@ -209,7 +202,7 @@ public class MainController {
             e.printStackTrace();
         }
         dbm.saveInsertion(insertion);
-        return "redirect:/Insertion/listInsertion";
+        return "redirect:/";
     }
 
     /**
@@ -229,12 +222,10 @@ public class MainController {
      * @param model of all Insertions
      * @return redirects tp page where you can see filtered Insertions
      */
-    @PostMapping("/Insertion/listInsertion")
+    @PostMapping("/")
     public String filterInsertion(Model model, @RequestParam("id_category")int id_category) {
         model.addAttribute("insertions", dbm.findFilteredInsertions(id_category));
-        return "./Insertion/listInsertion";
+        model.addAttribute("categories", dbm.findAllCategories());
+        return "index";
     }
-
-
-
 }

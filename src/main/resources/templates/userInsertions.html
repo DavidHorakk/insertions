@@ -41,33 +41,41 @@
 <div class="container">
     <H1>MY INSERTIONS</H1>
     <a th:href="@{/Insertion/createInsertion}">create insertion</a>
-
-    <table class="table">
+    <input type="text" id="filter" onkeyup="myFunction()" placeholder="Search in table...">
+    <br>
+    <table id="myTable" class="table" >
         <thead class="thead-dark">
         <tr>
             <th scope="col"> Insertion </th>
-            <th scope="col"> Popis </th>
-            <th scope="col"> Cena </th>
-            <th scope="col"> Kategorie </th>
-            <th scope="col"> Pod Kategorie </th>
-            <th scope="col"> Uzivatel </th>
+            <th scope="col"> Description </th>
+            <th scope="col"> Price </th>
+            <th scope="col"> Category </th>
+            <th scope="col"> Sub category </th>
+            <th scope="col"> User </th>
+            <th scope="col"> Date </th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="insertion : ${insertions}">
-            <td><a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}" ><span th:text="${insertion.name}"> Název </span></a></td>
-            <td><span th:text="${insertion.description}"> Popis </span></td>
-            <td><span th:text="${insertion.price} + ' Kc'"> Cena </span></td>
-            <td><span th:text="${insertion.category.name}"> Kategorie </span></td>
-            <td><span th:text="${insertion.subCategory.name}"> Pod kategorie </span></td>
-            <td><span th:text="${insertion.user.email}"> Uzivatel </span></td>
+            <td><a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}" ><span th:text="${insertion.name}"> Insertion </span></a></td>
+            <td><span th:text="${insertion.description}"> Description </span></td>
+            <td><span th:text="${insertion.price} + ' Czk'"> Price </span></td>
+            <td><span th:text="${insertion.category.name}"> Category </span></td>
+            <td><span th:text="${insertion.subCategory.name}"> Sub category </span></td>
+            <td><span th:text="${insertion.user.email}"> User </span></td>
+            <td><span th:text="${insertion.created}"> Date </span></td>
             <td><a th:href="@{/Insertion/deleteInsertion(id=${insertion.id_insertion})}" > Smazat </a></td>
         </tr>
         </tbody>
     </table>
     <a th:href="@{/}">Back to main page</a>
 </div>
-
-
 </body>
+<script>
+    function myFunction() {
+        const filter = document.querySelector('#filter').value.toUpperCase();
+        const trs = document.querySelectorAll('#myTable tr:not(.header)');
+        trs.forEach(tr => tr.style.display = [...tr.children].find(td => td.innerHTML.toUpperCase().includes(filter)) ? '' : 'none');
+    }
+</script>
 </html>
