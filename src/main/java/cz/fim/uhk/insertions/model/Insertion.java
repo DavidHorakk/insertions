@@ -1,6 +1,7 @@
 package cz.fim.uhk.insertions.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name="insertion")
@@ -29,11 +30,15 @@ public class Insertion {
     private byte[] photo;
     @Column(name = "format")
     private String format;
+    @Temporal(TemporalType.DATE)
+    private Date created;
+    @Temporal(TemporalType.DATE)
+    private Date expired;
 
     public Insertion() {
     }
 
-    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory, byte[] photo, String format) {
+    public Insertion(long id_insertion, String name, String description, double price, User user, Category category, SubCategory subCategory, byte[] photo, String format, Date created, Date expired) {
         this.id_insertion = id_insertion;
         this.name = name;
         this.description = description;
@@ -43,7 +48,10 @@ public class Insertion {
         this.subCategory = subCategory;
         this.photo = photo;
         this.format = format;
+        this.created = created;
+        this.expired = expired;
     }
+
 
     public long getId_insertion() {
         return id_insertion;
@@ -119,5 +127,21 @@ public class Insertion {
 
     public void setFormat(String format) {
         this.format = format;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getExpired() {
+        return expired;
+    }
+
+    public void setExpired(Date expired) {
+        this.expired = expired;
     }
 }

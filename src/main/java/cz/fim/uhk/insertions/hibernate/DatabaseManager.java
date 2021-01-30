@@ -4,10 +4,12 @@ import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
+import cz.fim.uhk.insertions.util.Utilities;
 import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -20,6 +22,39 @@ public class DatabaseManager {
             this.session=session;
         }
     }
+
+    public boolean isCategoryTableEmpty(){
+        List<Category> cat = findAllCategories();
+        if (cat.size() > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public boolean isSubCategoryTableEmpty(){
+        List<SubCategory> subcat = findAllSubCategories();
+        if (subcat.size() > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    /**
+     * Deletes all expired insertions from database
+     */
+    public void checkForExpiredInsertions(){
+        List<Insertion> insertions = findAllInsertions();
+        Date today = Utilities.getCurrentDate();
+        if(insertions.size()>0){
+            for (Insertion insertion: insertions) {
+                if(insertion.getExpired()==today){
+                    deleteInsertion(insertion);
+                }
+            }
+        }
+    }
+
 
     //==============================================================================================
     //

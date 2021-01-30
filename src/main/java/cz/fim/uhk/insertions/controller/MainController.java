@@ -5,6 +5,7 @@ import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.repository.UserRepository;
+import cz.fim.uhk.insertions.util.Utilities;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
 
 
 @Controller
@@ -197,6 +199,9 @@ public class MainController {
         insertion.setUser(userRepository.findByEmail(userEmail));
         insertion.setCategory(dbm.findCategoryByID(id_category));
         insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
+        insertion.setCreated(Utilities.getCurrentDate());
+        insertion.setExpired(Utilities.getExpiredDate());
+
         try {
             insertion.setPhoto(multiPartFile.getBytes());
             insertion.setFormat(multiPartFile.getContentType());
