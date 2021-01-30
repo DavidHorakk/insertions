@@ -1,6 +1,5 @@
 package cz.fim.uhk.insertions.service;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -20,7 +19,7 @@ import cz.fim.uhk.insertions.web.dto.UserRegistrationDto;
 
 @Service
 public class UserServiceImpl implements UserService{
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;

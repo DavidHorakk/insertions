@@ -51,15 +51,15 @@ public  class Utilities {
         return mailSender;
     }
 
-    public static void sendEmail() {
+    public static void sendEmail(String from, String to, String subject, String message) {
         javaMailSender = getJavaMailSender();
         SimpleMailMessage msg = new SimpleMailMessage();
 
-        msg.setFrom("insertionshorjir@gmail.com");
-        msg.setTo("jirasek.jiri32@gmail.com", "blackbenderr@gmail.com", "xsouda666x@gmail.com");
+        msg.setFrom(from);
+        msg.setTo(to);
 
-        msg.setSubject("Testing from Spring Boot");
-        msg.setText("Hello World \n Spring Boot Email");
+        msg.setSubject(subject);
+        msg.setText(message);
 
         javaMailSender.send(msg);
     }

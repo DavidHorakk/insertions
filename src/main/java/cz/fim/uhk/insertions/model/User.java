@@ -1,7 +1,5 @@
 package cz.fim.uhk.insertions.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;

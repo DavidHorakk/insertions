@@ -2,14 +2,10 @@ package cz.fim.uhk.insertions.hibernate;
 
 import cz.fim.uhk.insertions.model.Category;
 import cz.fim.uhk.insertions.model.SubCategory;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class StaticDataDB {
-
 
     public static void createCategories(DatabaseManager databaseManager){
         Category cat1, cat2, cat3, cat4, cat5, cat6;
@@ -131,11 +127,5 @@ public class StaticDataDB {
         databaseManager.saveSubCategory(subObleceni3);
         databaseManager.saveSubCategory(subObleceni4);
         databaseManager.saveSubCategory(subObleceni5);
-
-
-
-    }
-
-    public static void createSubCategories(DatabaseManager databaseManager){
-    }
+        }
 }

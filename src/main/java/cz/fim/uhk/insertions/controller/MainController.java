@@ -207,8 +207,8 @@ public class MainController {
 
     /**
      * Deletes insertion and redirects back to insertions made by specific user,
-     * @param id
-     * @return
+     * @param id insertion id
+     * @return to userInsertion page
      */
     @GetMapping("/Insertion/deleteInsertion")
     public String deleteInsertion(@RequestParam("id") long id){
@@ -228,4 +228,33 @@ public class MainController {
         model.addAttribute("categories", dbm.findAllCategories());
         return "index";
     }
+    /**
+     * Redirects to send email page
+     * @param
+     * @return to userInsertion page
+     */
+    @GetMapping("/Mail/sendMail")
+    public String sendEmailForm(
+            Model model, @RequestParam("id")long id){
+        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        return "/Mail/sendMail";
+    }
+    /**
+     * Redirects to send email page
+     * @param
+     * @return to userInsertion page
+     */
+    @PostMapping("/Mail/sendMail")
+    public String sendMail(
+            Model model,
+            @RequestParam("from") String from,
+            @RequestParam("to") String to,
+            @RequestParam("subject") String subject,
+            @RequestParam("message") String message
+    ){
+        Utilities.sendEmail(from, to, subject, message);
+        model.addAttribute("insertion", dbm.findInsertionByID((long)9));
+        return "redirect:/Insertion/detailInsertion?id="+9;
+    }
+
 }

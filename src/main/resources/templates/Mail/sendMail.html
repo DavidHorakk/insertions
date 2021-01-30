@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="cs" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Send email</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{~/site.css}">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container1">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Insertions</a>
+            <a class="navbar-brand" href="#" th:href="@{/userInsertions}">UserInsertions</a>
+            <a class="navbar-brand" href="#" th:href="@{/Category/listCategory}">Categories</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div>
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully created new Category</div>
+        </div>
+
+        <h1>Send email</h1>
+
+        <form th:action="@{./sendMail}" method="post">
+            <div class="form-group">
+                <label class="control-label" for="from"> From:</label>
+                <input th:name="from" class="form-control input50" readonly th:value="${#request.userPrincipal.getName().toString()}" id="from"/>
+                <label class="control-label" for="to"> To:</label>
+                <input th:name="to" class="form-control input50" readonly th:value="${insertion.user.email.toString()}" id="to" />
+                <label class="control-label" for="subject"> subject:</label>
+                <input th:name="subject" class="form-control input50" readonly th:value="${insertion.description}" id="subject" />
+                <label class="control-label" for="message"> Message</label>
+                <textarea th:name="message" class="form-control input50" required="required" id="message" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit" class="btn btn-success">Send email</button>
+            </div>
+        </form>
+        <a th:href="@{/Insertion/detailInsertion(id=${insertion.id_insertion})}">Back to detail</a>
+    </div>
+</div>
+</body>
+</html>

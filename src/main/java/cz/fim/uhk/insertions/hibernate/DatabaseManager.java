@@ -5,7 +5,6 @@ import cz.fim.uhk.insertions.model.Insertion;
 import cz.fim.uhk.insertions.model.SubCategory;
 import cz.fim.uhk.insertions.model.User;
 import cz.fim.uhk.insertions.util.Utilities;
-import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -25,19 +24,11 @@ public class DatabaseManager {
 
     public boolean isCategoryTableEmpty(){
         List<Category> cat = findAllCategories();
-        if (cat.size() > 0){
-            return false;
-        }else{
-            return true;
-        }
+        return cat.size() <= 0;
     }
     public boolean isSubCategoryTableEmpty(){
         List<SubCategory> subcat = findAllSubCategories();
-        if (subcat.size() > 0){
-            return false;
-        }else{
-            return true;
-        }
+        return subcat.size() <= 0;
     }
 
     /**

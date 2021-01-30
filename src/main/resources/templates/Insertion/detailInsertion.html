@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="cs" xmlns:th="http://www.thymeleaf.org">
+<html lang="cs" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
     <title>Detail insertion</title>
@@ -26,6 +27,11 @@
             <a class="navbar-brand" href="#" th:href="@{/userInsertions}">UserInsertions</a>
             <a class="navbar-brand" href="#" th:href="@{/Category/listCategory}">Categories</a>
         </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 
@@ -43,23 +49,24 @@
                 <div class="form-group">
                     <label class="control-label" for="name"> Insertion name</label>
                     <input id="name" class="form-control input50" th:field="*{insertion.name}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <label class="control-label" for="description"> Insertion description</label>
                     <input id="description" class="form-control input50" th:field="*{insertion.description}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <label class="control-label" for="price"> Insertion price</label>
                     <input id="price" class="form-control input50" th:field="*{insertion.price}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <label class="control-label" for="user"> Insertion user</label>
                     <input id="user" class="form-control input50" th:value="${insertion.user.email}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <label class="control-label" for="category"> Insertion category</label>
                     <input id="category" class="form-control input50" th:value="${insertion.category.name}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <label class="control-label" for="subCategory"> Insertion subcategory</label>
                     <input id="subCategory" class="form-control input50" th:value="${insertion.subCategory.name}"
-                           required disabled autofocus="autofocus" />
+                           required readonly autofocus="autofocus" />
                     <br>
+                    <a th:href="@{/Mail/sendMail(id=${insertion.id_insertion})}"><button class="btn btn-success">Answer for insertion</button></a>
                     <img th:src="${source}" alt="inserted img">
 
                 </div>

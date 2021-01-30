@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="cs">
 <head>
     <meta charset="ISO-8859-1">
     <title>My insertions</title>
@@ -41,7 +41,7 @@
 <div class="container">
     <H1>MY INSERTIONS</H1>
     <a th:href="@{/Insertion/createInsertion}">create insertion</a>
-    <input type="text" id="filter" onkeyup="myFunction()" placeholder="Search in table...">
+    <label for="filter"></label><input type="text" id="filter" onkeyup="myFunction()" placeholder="Search in table...">
     <br>
     <table id="myTable" class="table" >
         <thead class="thead-dark">

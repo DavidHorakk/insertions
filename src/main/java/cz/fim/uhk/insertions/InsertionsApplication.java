@@ -2,7 +2,6 @@ package cz.fim.uhk.insertions;
 
 import cz.fim.uhk.insertions.hibernate.DatabaseManager;
 import cz.fim.uhk.insertions.hibernate.StaticDataDB;
-import cz.fim.uhk.insertions.util.Utilities;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
