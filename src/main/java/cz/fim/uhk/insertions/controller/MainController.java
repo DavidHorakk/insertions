@@ -171,6 +171,10 @@ public class MainController {
         insertion.setUser(userRepository.findByEmail(userEmail));
         insertion.setCategory(dbm.findCategoryByID(id_category));
         insertion.setSubCategory(dbm.findSubCategoryByID(id_subcategory));
+        insertion.setCreated(Utilities.getCurrentDate());
+        insertion.setExpired(Utilities.getExpiredDate());
+        insertion.setFormat(dbm.findInsertionByID(id).getFormat());
+        insertion.setPhoto(dbm.findInsertionByID(id).getPhoto());
         dbm.updateInsertion(insertion);
         return "redirect:/Insertion/detailInsertion?id="+id;
     }
@@ -230,7 +234,7 @@ public class MainController {
     }
     /**
      * Redirects to send email page
-     * @param
+     * @param id of insertion
      * @return to userInsertion page
      */
     @GetMapping("/Mail/sendMail")
@@ -241,7 +245,11 @@ public class MainController {
     }
     /**
      * Redirects to send email page
-     * @param
+     * @param id id of insertion
+     * @param from address of sender
+     * @param to address of recipient
+     * @param subject subject of email (insertion description)
+     * @param message message of email
      * @return to userInsertion page
      */
     @PostMapping("/Mail/sendMail")

@@ -64,7 +64,8 @@
             <td><span th:text="${insertion.subCategory.name}"> Sub category </span></td>
             <td><span th:text="${insertion.user.email}"> User </span></td>
             <td><span th:text="${insertion.created}"> Date </span></td>
-            <td><a th:href="@{/Insertion/deleteInsertion(id=${insertion.id_insertion})}" > Smazat </a></td>
+            <td><a th:href="@{/Insertion/editInsertion(id=${insertion.id_insertion})}" > Edit </a></td>
+            <td><a th:href="@{/Insertion/deleteInsertion(id=${insertion.id_insertion})}" > Delete </a></td>
         </tr>
         </tbody>
     </table>
