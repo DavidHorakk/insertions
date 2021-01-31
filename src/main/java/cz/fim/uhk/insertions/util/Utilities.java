@@ -59,7 +59,7 @@ public  class Utilities {
         msg.setTo(to);
 
         msg.setSubject(subject);
-        msg.setText(message);
+        msg.setText("User with email: "+ from + " has send you reply for insertion: " +message);
 
         javaMailSender.send(msg);
     }

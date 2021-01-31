@@ -57,6 +57,7 @@
                 <input th:name="subject" class="form-control input50" readonly th:value="${insertion.description}" id="subject" />
                 <label class="control-label" for="message"> Message</label>
                 <textarea th:name="message" class="form-control input50" required="required" id="message" rows="4" cols="50"></textarea>
+                <input th:name="id" hidden readonly th:value="${insertion.id_insertion}" id="id"/>
                 <br>
                 <button type="submit" class="btn btn-success">Send email</button>
             </div>

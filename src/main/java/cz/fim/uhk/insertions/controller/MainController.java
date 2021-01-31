@@ -247,14 +247,15 @@ public class MainController {
     @PostMapping("/Mail/sendMail")
     public String sendMail(
             Model model,
+            @RequestParam("id") long id,
             @RequestParam("from") String from,
             @RequestParam("to") String to,
             @RequestParam("subject") String subject,
             @RequestParam("message") String message
     ){
         Utilities.sendEmail(from, to, subject, message);
-        model.addAttribute("insertion", dbm.findInsertionByID((long)9));
-        return "redirect:/Insertion/detailInsertion?id="+9;
+        model.addAttribute("insertion", dbm.findInsertionByID(id));
+        return "redirect:/Insertion/detailInsertion?id="+id;
     }
 
 }
