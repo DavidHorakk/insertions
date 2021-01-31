@@ -21,11 +21,19 @@ public class DatabaseManager {
             this.session=session;
         }
     }
-
+    /**
+     * Check if CategoryTable is empty
+     * @return true - is empty = true, not empty = false
+     */
     public boolean isCategoryTableEmpty(){
         List<Category> cat = findAllCategories();
         return cat.size() <= 0;
     }
+
+    /**
+     * Check if SubCategoryTable is empty
+     * @return true - is empty = true, not empty = false
+     */
     public boolean isSubCategoryTableEmpty(){
         List<SubCategory> subcat = findAllSubCategories();
         return subcat.size() <= 0;
@@ -69,11 +77,6 @@ public class DatabaseManager {
         return user;
     }
 
-//    public User findUserByMail(String mail){
-//        String mailprep = "\'"+mail+"\'";
-//       return session.createQuery("SELECT a FROM User a WHERE a.email = " +"'mail'", User.class).getSingleResult();
-//    }
-
     public User findUserByName(String name){
         User user = session.load(User.class, name);
         if(user != null){
@@ -85,9 +88,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Uloží instanci uživatele do databáze
-     * @param user ukládaný uživatel
-     * @return informace o úspěchu/neúspěchu
+     * Saves instance of the user into the database
+     * @param user user that is going to be saved
+     * @return Information about success/denial
      */
     public String saveUser(User user){
         if(user != null){
@@ -101,16 +104,16 @@ public class DatabaseManager {
     }
 
     /**
-     * odstraní uživatele pomocí jeho instance
-     * @param user instance uživatele ke smazání
+     *Deletes User instance from table
+     * @param user Instance of the user, that is going to be deleted.
      */
     public void deleteUser(User user){
         session.delete(user);
     }
 
     /**
-     * aktualizuje záznam uživatele, který se shoduje s instancí
-     * @param user instance uživatele
+     * Updates record of specific user, that is in parameter
+     * @param user Instance of User
      */
     public void updateUser(User user){
         Transaction tx = session.beginTransaction();
@@ -127,8 +130,8 @@ public class DatabaseManager {
     }
     public void deleteAllUsers(){
         List<User> users = findAllUsers();
-        for (int i = 0; i < users.size(); i++){
-            deleteUser(users.get(i));
+        for (User user : users) {
+            deleteUser(user);
         }
     }
 
@@ -139,9 +142,9 @@ public class DatabaseManager {
     //==============================================================================================
 
     /**
-     * najde kategorii podle ID
-     * @param id integer klíč
-     * @return Vrací nalezenou kategorii, pokud nenajde, kategorie se jmenuje notfound
+     * Finds category by ID
+     * @param id integer primary key
+     * @return Returns category, if it does not find any, method will return instance called "notfound"
      */
     public Category findCategoryByID(int id){
         Category category = session.load(Category.class, id);
@@ -154,9 +157,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Uloží instanci kategorie do db
-     * @param category daná kategorie
-     * @return informace o úspěchu/neúspěchu
+     * Saves instance of Category
+     * @param category Instance of Category
+     * @return Returns information about success/denial
      */
     public String saveCategory(Category category){
         if(category != null){
@@ -170,23 +173,32 @@ public class DatabaseManager {
     }
 
     /**
-     * odstraní kategorie pomocí jejího instance
-     * @param category instance kategorie ke smazání
+     * Deletes category from database
+     * @param category instance that is going to be deleted
      */
     public void deleteCategory(Category category){
         session.delete(category);
     }
 
     /**
-     * aktualizuje záznam uživatele, který se shoduje s instancí
-     * @param category instance uživatele
+     * Updates record in Category table
+     * @param category Instance of the category, that is going to be updated
      */
     public void updateCategory(Category category){
         session.update(category);
     }
+
+    /**
+     * Finds all categories
+     * @return returns List of Category instances
+     */
     public List<Category> findAllCategories() {
         return session.createQuery("SELECT a FROM Category a", Category.class).getResultList();
     }
+
+    /**
+     * Deletes all categories in the dabase
+     */
     public void deleteAllCategories(){
         List<Category> categories = findAllCategories();
         for (int i = 0; i < categories.size(); i++){
@@ -201,9 +213,9 @@ public class DatabaseManager {
     //==============================================================================================
 
     /**
-     * najde subkategorii podle ID
-     * @param id integer klíč
-     * @return Vrací nalezenou subkategorii, pokud nenajde, subkategorie se jmenuje notfound
+     * Finds the subcategory by ID
+     * @param id integer primary key
+     * @return Returns SubCategory, if it does not find any, method will return instance called "notfound"
      */
     public SubCategory findSubCategoryByID(int id){
         SubCategory subCategory = session.load(SubCategory.class, id);
@@ -216,9 +228,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Uloží instanci kategorie do db
-     * @param subCategory daná kategorie
-     * @return informace o úspěchu/neúspěchu
+     * Saves instance of SubCategory into the database
+     * @param subCategory Instance of the SubCategory
+     * @return Returns information about success/denial
      */
     public String saveSubCategory(SubCategory subCategory){
         if(subCategory != null){
@@ -232,27 +244,32 @@ public class DatabaseManager {
     }
 
     /**
-     * odstraní kategorie pomocí jejího instance
-     * @param subCategory instance kategorie ke smazání
+     * Deletes SubCategory by instance of Category
+     * @param subCategory instance of SubCategory
      */
     public void deleteCategory(SubCategory subCategory){
         session.delete(subCategory);
     }
     /**
-     * aktualizuje záznam uživatele, který se shoduje s instancí
-     * @param subCategory instance uživatele
+     * Updates the record of SubCategory record
+     * @param subCategory instance of SubCategory that is going to be updated
      */
     public void updateSubCategory(SubCategory subCategory){
         Transaction tx = session.beginTransaction();
         session.merge(subCategory);
         tx.commit();
     }
+
+    /**
+     * Finds all SubCategories
+     * @return Returns all SubCategories in List
+     */
     public List<SubCategory> findAllSubCategories() {
         return session.createQuery("SELECT a FROM SubCategory a", SubCategory.class).getResultList();
     }
 
     /**
-     * smaže všechny subkategorie
+     * Deletes all SubCategories
      */
     public void deleteAllSubCategories(){
         List<SubCategory> subcategories = findAllSubCategories();
@@ -268,9 +285,9 @@ public class DatabaseManager {
     //==============================================================================================
 
     /**
-     * najde inzerát podle ID
-     * @param id integer klíč
-     * @return Vrací nalezený inzerát, pokud nenajde, inzerát se jmenuje notfound
+     * Finds the insertion by ID
+     * @param id integer primary key
+     * @return Returns SubCategory, if it does not find any, method will return instance called "notfound"
      */
     public Insertion findInsertionByID(Long id){
         Insertion insertion = session.load(Insertion.class, id);
@@ -283,9 +300,9 @@ public class DatabaseManager {
     }
 
     /**
-     * Uloží instanci inzerátu do db
-     * @param insertion daný inzerát
-     * @return informace o úspěchu/neúspěchu
+     * Saves the instance of Insertion into the database
+     * @param insertion Instance of insertion that is going to be saved
+     * @return Information about success/denial
      */
     public String saveInsertion(Insertion insertion){
         if(insertion != null){
@@ -300,8 +317,8 @@ public class DatabaseManager {
 
 
     /**
-     * odstraní inzeráty pomocí jejího instance
-     * @param insertion instance inzerátu ke smazání
+     * Deletes insertion by Insertion instance
+     * @param insertion Instance of Insertion that is going to be deleted
      */
     public void deleteInsertion(Insertion insertion){
         Transaction tx = session.beginTransaction();
@@ -309,8 +326,8 @@ public class DatabaseManager {
         tx.commit();
     }
     /**
-     * aktualizuje záznam inzerátu, který se shoduje s instancí
-     * @param insertion instance inzerátu
+     * Updates record of the insertion
+     * @param insertion Instance of Insertion
      */
     public void updateInsertion(Insertion insertion){
             Transaction tx = session.beginTransaction();
@@ -318,20 +335,34 @@ public class DatabaseManager {
             tx.commit();
     }
 
+    /**
+     * Finds all insertions
+     * @return Returns insertions in List
+     */
     public List<Insertion> findAllInsertions() {
         return session.createQuery("SELECT a FROM Insertion a", Insertion.class).getResultList();
     }
 
+    /**
+     * Filters all insertions by their Category
+     * @param category filter category
+     * @return returns List of filtered insertions
+     */
     public List<Insertion> findFilteredInsertions(int category) {
         return session.createQuery("SELECT a FROM Insertion a WHERE (a.category.id_category =" + "'"+category+"')", Insertion.class).getResultList();
     }
 
+    /**
+     * Filters insertions made only by the user
+     * @param email mail address of the user, that you want to filter
+     * @return returns List of filtered insertions
+     */
     public List<Insertion> findAllInsertionsByUser(String email) {
         return session.createQuery("SELECT a FROM Insertion a WHERE a.user.email =" + "'"+email+"'", Insertion.class).getResultList();
     }
 
     /**
-     * smaže všechny inzeráty
+     * Deletes all Insertions from the database
      */
     public void deleteAllInsertions(){
         List<Insertion> insertions = findAllInsertions();

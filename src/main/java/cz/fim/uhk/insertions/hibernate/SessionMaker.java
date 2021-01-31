@@ -13,7 +13,7 @@ public class SessionMaker {
 
     /**
      *
-     * @return Vrátí otevřenou instanci session třídy
+     * @return Returns opened instance of Session class
      */
     public static Session openSession(){
         Configuration con = new Configuration().configure("hibernate.cfg.xml")

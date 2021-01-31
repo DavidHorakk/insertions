@@ -73,7 +73,7 @@
                     <option disabled="disabled" selected="selected">select category</option>
                     <option th:each="subCategory : ${subCategories}"
                             th:value="${subCategory.id_subcategory}"
-                            th:text="${subCategory.getName()}"></option>
+                            th:text="${subCategory.getName()}" ></option>
                 </select>
                 <!--                                th:if="${subCategory.category.getId_category() == 1}"-->
                 <label class="control-label" for="file">Select image:</label>

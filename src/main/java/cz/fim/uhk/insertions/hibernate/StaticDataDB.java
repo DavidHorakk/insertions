@@ -7,6 +7,11 @@ import java.util.Set;
 
 public class StaticDataDB {
 
+
+    /**
+     * Creates and binds Categories and subcategories
+     * @param databaseManager intermediary between the database and the user instance
+     */
     public static void createCategories(DatabaseManager databaseManager){
         Category cat1, cat2, cat3, cat4, cat5, cat6;
         Set<SubCategory> sub1, sub2, sub3, sub4, sub5, sub6;

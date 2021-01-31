@@ -13,9 +13,8 @@ public class InsertionsApplication {
 
           DatabaseManager dbm = new DatabaseManager(null);
 
-          if(dbm.isCategoryTableEmpty() && dbm.isSubCategoryTableEmpty()){
+          if(dbm.isCategoryTableEmpty() && dbm.isSubCategoryTableEmpty()){ // if static data are not inserted in tables, create them
               StaticDataDB.createCategories(dbm);
           }
-        //Utilities.sendEmail();
     }
 }
