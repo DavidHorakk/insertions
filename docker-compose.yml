@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: app.Dockerfile
+    ports:
+      - "8080:8080"
+    #restart: always
+    depends_on:
+      - database
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/insertions?useUnicode=true&character_set_server=utf8mb4_unicode_ci
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root123
+      WAIT_HOSTS: mysql:3306
+  database:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    image: mysql:5.7
+    ports:
+      - "52000"
+    #restart: always
+    command: --explicit_defaults_for_timestamp
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - ./db-data:/var/lib/mysql:rw
+
+volumes:
+  db-data:
