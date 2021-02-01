@@ -15,7 +15,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/insertions?useUnicode=true&character_set_server=utf8mb4_unicode_ci
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123
-      WAIT_HOSTS: mysql:3306
+      WAIT_HOSTS: mysql:52000
   database:
     build:
       context: .

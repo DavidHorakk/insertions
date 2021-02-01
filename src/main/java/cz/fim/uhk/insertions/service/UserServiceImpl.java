@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService{
     public User save(UserRegistrationDto registrationDto) {
         User user = new User(registrationDto.getName(),
                 registrationDto.getSurname(),passwordEncoder.encode(registrationDto.getPassword()),
-                registrationDto.getEmail(), registrationDto.getTelnum(), Collections.singletonList(new Role("ROLE_USER")), null);
+                registrationDto.getEmail(),  Collections.singletonList(new Role("ROLE_USER")), null);
         User checkUser = userRepository.findByEmail(registrationDto.getEmail());
         if(checkUser == null){
             return userRepository.save(user);

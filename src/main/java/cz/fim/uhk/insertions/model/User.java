@@ -18,8 +18,6 @@ public class User {
     private String password;
     @Column(name="email_column", unique=true)
     private String email;
-    @Column(name="telnum_column")
-    private String telnum;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "users_roles",
@@ -35,22 +33,14 @@ public class User {
     public User() {
     }
 
-    public User(String name, String surname, String password, String email, String telnum, Collection<Role> roles, List<Insertion> insertions) {
+    public User(String name, String surname, String password, String email, Collection<Role> roles, List<Insertion> insertions) {
         this.id_user=id_user;
         this.name = name;
         this.surname = surname;
         this.password = password;
         this.email = email;
-        this.telnum = telnum;
         this.roles = roles;
         this.insertions=insertions;
-    }
-
-    public String validateTelNum(String telnum){
-        if(!telnum.equals("")){
-            return telnum.trim();
-        }
-        return telnum;
     }
 
     public int getId_user() {
@@ -91,14 +81,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getTelnum() {
-        return telnum;
-    }
-
-    public void setTelnum(String telnum) {
-        this.telnum = telnum;
     }
 
     public Collection<Role> getRoles() {
